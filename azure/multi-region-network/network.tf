@@ -3,26 +3,17 @@ resource "azurerm_virtual_network" "primary" {
   name                = "primary"
   resource_group_name = azurerm_resource_group.group.name
   location            = azurerm_resource_group.group.location
-  address_space       = ["192.168.0.0/16"]
+  address_space       = var.virtual_network_cidr
 
   subnet {
     name           = "web"
-    address_prefix = "192.168.0.0/24"
+    address_prefix = var.web_subnet_cidr
   }
 
   subnet {
     name           = "db"
-    address_prefix = "192.168.1.0/24"
+    address_prefix = var.db_subnet_cidr
   }
 
-  subnet {
-    name           = "web_1"
-    address_prefix = "192.168.2.0/24"
-  }
-
-  subnet {
-    name           = "db_1"
-    address_prefix = "192.168.3.0/24"
-  }
   depends_on = [azurerm_resource_group.group]
 }
