@@ -16,9 +16,13 @@ resource "azurerm_virtual_network" "primary" {
   }
 
   subnet {
-    name = "web_1"
+    name           = "web_1"
     address_prefix = "192.168.2.0/24"
+  }
 
+  subnet {
+    name           = "db_1"
+    address_prefix = "192.168.3.0/24"
   }
   depends_on = [azurerm_resource_group.group]
 }
