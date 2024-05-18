@@ -1,9 +1,9 @@
 ## defining the variables
 variable "resource_group_name" {
-    type = string
-    description = "This is resource group name"
-    default = "ntiar"
-  
+  type        = string
+  description = "This is resource group name"
+  default     = "default_name"
+
 }
 variable "resource_group_location" {
   type        = string
@@ -18,14 +18,15 @@ variable "virtual_network_cidr" {
   default     = ["10.10.0.0/16"]
 }
 
-variable "web_subnet_cidr" {
-  type        = string
-  description = "This is web subnet cidr range"
-  default     = "10.10.0.0/24"
+variable "subnet_names" {
+  type        = list(string)
+  description = "This contains default subnet names"
+  default     = ["web", "db", "app"]
 }
 
-variable "db_subnet_cidr" {
-  type        = string
-  description = "This is db subnet cidr range"
-  default     = "10.10.1.0/24"
+variable "subnets_cidrs" {
+  type        = list(string)
+  description = "This contains default subnet cidr"
+  default     = ["10.10.0.0/24", "10.10.1.0/24", "10.10.2.0/24"]
+
 }
