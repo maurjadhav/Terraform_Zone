@@ -62,3 +62,12 @@ resource "azurerm_network_interface" "web_nic" {
   }
   depends_on = [azurerm_public_ip.web, azurerm_subnet.subnets]
 }
+
+
+# associate network security group with network interface
+resource "azurerm_network_interface_security_group_association" "web_nsg-to-web" {
+  network_interface_id      = azurerm_network_interface.web_nic.id
+  network_security_group_id = azurerm_network_security_group.web.id
+  depends_on                = [azurerm_network_interface.web_nic, azurerm_network_security_group.web]
+
+}
