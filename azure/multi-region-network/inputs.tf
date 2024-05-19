@@ -2,7 +2,7 @@
 variable "resource_group_name" {
   type        = string
   description = "This is resource group name"
-  default     = "default__resource_group_name"
+  default     = "default_resource_group_name"
 
 }
 variable "virtual_network_name" {
@@ -28,7 +28,7 @@ variable "virtual_network_cidr" {
 variable "subnet_names" {
   type        = list(string)
   description = "This contains default subnet names"
-  default     = ["web", "db", "app"]
+  default     = ["default_web", "default_db", "default_app"]
 }
 
 variable "subnets_cidrs" {
