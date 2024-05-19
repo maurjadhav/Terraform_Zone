@@ -47,3 +47,18 @@ resource "azurerm_network_security_rule" "web" {
   depends_on                  = [azurerm_resource_group.group, azurerm_virtual_network.primary]
 
 }
+
+
+# creating network interfaace
+resource "azurerm_network_interface" "web_nic" {
+  name                = "web_nic"
+  resource_group_name = azurerm_resource_group.group.name
+  location            = azurerm_resource_group.group.location
+  ip_configuration {
+    name                          = "web_ip"
+    subnet_id                     = azurerm_subnet.subnets[0].id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.web.id
+  }
+  depends_on = [azurerm_public_ip.web, azurerm_subnet.subnets]
+}
