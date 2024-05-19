@@ -1,10 +1,14 @@
 # create the virtual network
 resource "azurerm_virtual_network" "primary" {
-  name                = "primary"
+  name                = var.virtual_network_name
   resource_group_name = azurerm_resource_group.group.name
   location            = azurerm_resource_group.group.location
   address_space       = var.virtual_network_cidr
-  depends_on          = [azurerm_resource_group.group]
+  tags = {
+    Environment = "Dev"
+    CreatedBy   = "Terraform"
+  }
+  depends_on = [azurerm_resource_group.group]
 }
 
 # create the multiple subnets
@@ -14,5 +18,7 @@ resource "azurerm_subnet" "subnets" {
   resource_group_name  = azurerm_resource_group.group.name
   name                 = var.subnet_names[count.index]
   address_prefixes     = [var.subnets_cidrs[count.index]]
-  depends_on           = [azurerm_virtual_network.primary]
+
+  depends_on = [azurerm_virtual_network.primary]
 }
+

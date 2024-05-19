@@ -14,4 +14,5 @@ provider "azurerm" {
   features {
 
   }
+
 }
