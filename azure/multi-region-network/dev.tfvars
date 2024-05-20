@@ -7,7 +7,7 @@ subnet_names            = ["web", "app", "db"]
 subnets_cidrs           = ["192.168.0.0/24", "192.168.1.0/24", "192.168.2.0/24"]
 
 web_nsg_rules = [{
-  name                       = "open_http"        # http allow
+  name                       = "open_http" # http  allow
   description                = "this opens 80 port"
   protocol                   = "Tcp"
   source_port_range          = "*"
@@ -18,7 +18,7 @@ web_nsg_rules = [{
   priority                   = 1000
   },
   {
-    name                       = "open_ssh"       # ssh access allow
+    name                       = "open_ssh" # ssh access allow
     description                = "this opens 80 port"
     protocol                   = "Tcp"
     source_port_range          = "*"
@@ -32,7 +32,7 @@ web_nsg_rules = [{
 vm_info = {
   name            = "webserver"
   size            = "Standard_B1s"
-  username        = "preschool-1"
+  username        = "webserver"
   public_key_path = "~/.ssh/id_rsa.pub"
   publisher       = "canonical"
   offer           = "0001-com-ubuntu-server-jammy"

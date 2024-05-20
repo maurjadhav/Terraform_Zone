@@ -92,5 +92,6 @@ resource "azurerm_linux_virtual_machine" "webserver" {
     sku       = var.vm_info.sku
     version   = var.vm_info.version
   }
+  user_data = filebase64("install.sh")
 
 }
