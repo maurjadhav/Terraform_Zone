@@ -69,3 +69,28 @@ resource "azurerm_network_interface_security_group_association" "web_nsg-to-web"
   depends_on                = [azurerm_network_interface.web-nic, azurerm_network_security_group.web-nsg]
 
 }
+
+# creating virtual machine
+resource "azurerm_linux_virtual_machine" "webserver" {
+  name                  = var.vm_info.name
+  resource_group_name   = azurerm_resource_group.group.name
+  location              = azurerm_resource_group.group.location
+  network_interface_ids = [azurerm_network_interface.web-nic.id]
+  size                  = var.vm_info.size
+  admin_username        = var.vm_info.username
+  admin_ssh_key {
+    username   = var.vm_info.username
+    public_key = file(var.vm_info.public_key_path)
+  }
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+  source_image_reference {
+    publisher = var.vm_info.publisher
+    offer     = var.vm_info.offer
+    sku       = var.vm_info.sku
+    version   = var.vm_info.version
+  }
+
+}

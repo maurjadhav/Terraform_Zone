@@ -64,3 +64,28 @@ variable "web_nsg_rules" {
   }]
 
 }
+
+variable "vm_info" {
+  type = object({
+    name            = string
+    size            = string
+    username        = string
+    public_key_path = string
+    publisher       = string
+    offer           = string
+    sku             = string
+    version         = string
+  })
+  # this is default UBUNTU vartiual machine specifications
+  default = {
+    name            = "defaultserver"
+    size            = "Standard_B1s"
+    username        = "default"
+    public_key_path = "~/.ssh/id_rsa.pub"
+    publisher       = "canonical"
+    offer           = "0001-com-ubuntu-server-jammy"
+    sku             = "22_04-lts-gen2"
+    version         = "latest"
+  }
+
+}
