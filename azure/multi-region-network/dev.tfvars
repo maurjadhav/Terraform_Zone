@@ -3,7 +3,7 @@ resource_group_name     = "multi-region-network"
 virtual_network_name    = "primary"
 resource_group_location = "central india"
 virtual_network_cidr    = ["192.168.0.0/16"]
-subnet_names            = ["app", "web", "db"]
+subnet_names            = ["web", "app", "db"]
 subnets_cidrs           = ["192.168.0.0/24", "192.168.1.0/24", "192.168.2.0/24"]
 
 web_nsg_rules = [{

@@ -1,6 +1,6 @@
 # create public ip address
-resource "azurerm_public_ip" "web" {
-  name                = "web"
+resource "azurerm_public_ip" "web-public-ip" {
+  name                = "web-public"
   resource_group_name = azurerm_resource_group.group.name
   location            = var.resource_group_location
   allocation_method   = "Static"
@@ -16,8 +16,8 @@ resource "azurerm_public_ip" "web" {
 
 
 # create network security group
-resource "azurerm_network_security_group" "web" {
-  name                = "web_nsg"
+resource "azurerm_network_security_group" "web-nsg" {
+  name                = "web-nsg"
   resource_group_name = azurerm_resource_group.group.name
   location            = azurerm_resource_group.group.location
   tags = {
@@ -30,10 +30,10 @@ resource "azurerm_network_security_group" "web" {
 }
 
 # create network security rule
-resource "azurerm_network_security_rule" "web" {
+resource "azurerm_network_security_rule" "for-web" {
   count                       = length(var.web_nsg_rules)
   resource_group_name         = azurerm_resource_group.group.name
-  network_security_group_name = azurerm_network_security_group.web.name
+  network_security_group_name = azurerm_network_security_group.web-nsg.name
   name                        = var.web_nsg_rules[count.index].name
   description                 = var.web_nsg_rules[count.index].description
   protocol                    = var.web_nsg_rules[count.index].protocol
@@ -50,24 +50,22 @@ resource "azurerm_network_security_rule" "web" {
 
 
 # creating network interfaace
-resource "azurerm_network_interface" "web_nic" {
-  name                = "web_nic"
+resource "azurerm_network_interface" "web-nic" {
+  name                = "web-nic"
   resource_group_name = azurerm_resource_group.group.name
   location            = azurerm_resource_group.group.location
   ip_configuration {
     name                          = "web_ip"
     subnet_id                     = azurerm_subnet.subnets[0].id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.web.id
+    public_ip_address_id          = azurerm_public_ip.web-public-ip.id
   }
-  depends_on = [azurerm_public_ip.web, azurerm_subnet.subnets]
 }
-
 
 # associate network security group with network interface
 resource "azurerm_network_interface_security_group_association" "web_nsg-to-web" {
-  network_interface_id      = azurerm_network_interface.web_nic.id
-  network_security_group_id = azurerm_network_security_group.web.id
-  depends_on                = [azurerm_network_interface.web_nic, azurerm_network_security_group.web]
+  network_interface_id      = azurerm_network_interface.web-nic.id
+  network_security_group_id = azurerm_network_security_group.web-nsg.id
+  depends_on                = [azurerm_network_interface.web-nic, azurerm_network_security_group.web-nsg]
 
 }
