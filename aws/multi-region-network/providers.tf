@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+
 provider "aws" {
   region = var.region # Mumbai reagion as a region
   default_tags {      # Default tags
