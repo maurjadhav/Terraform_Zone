@@ -1,3 +1,4 @@
+# security group for web
 resource "aws_security_group" "web" {
   name        = var.security_group_info.name
   description = var.security_group_info.description
@@ -18,7 +19,7 @@ resource "aws_vpc_security_group_ingress_rule" "web" {
   to_port           = var.security_group_info.inbound_rules[count.index].port
   ip_protocol       = var.security_group_info.inbound_rules[count.index].protocol
   description       = var.security_group_info.inbound_rules[count.index].description
-  
+
   depends_on = [aws_security_group.web]
 }
 

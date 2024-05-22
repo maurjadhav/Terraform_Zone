@@ -1,11 +1,22 @@
-output "aws_security_group" {
-    value = aws_security_group.web.id
+output "aws_instance" {
+  value = aws_instance.webserver
+
 }
 
-output "aws_vpc" {
-  value = aws_vpc.primary.id
+output "web-public-ip" {
+  value = [for instance in aws_instance.webserver : instance.public_ip]
 }
 
-output "aws_subnet" {
-  value = aws_subnet.public
+output "web-url" {
+  value = [for instance in aws_instance.webserver : "http://${instance.public_ip}/preschool"]
+
+}
+
+output "web-public_ip" {
+  value = aws_instance.webserver[*].public_ip
+}
+
+output "web_url" {
+  value = "http://${aws_instance.webserver[*].public_ip}/preschool"
+
 }

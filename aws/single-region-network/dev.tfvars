@@ -42,7 +42,7 @@ security_group_info = {
     port        = 22
     protocol    = "tcp"
     description = "open ssh"
-  },{
+    }, {
     cidr        = "0.0.0.0/0"
     port        = 80
     protocol    = "tcp"
@@ -51,3 +51,19 @@ security_group_info = {
   outbound_rules   = []
   allow_all_egress = true
 }
+
+ec2_instance_info = [{
+  name              = "webserver-1"
+  ami_id            = "ami-0f58b397bc5c1f2e8"
+  instance_type     = "t2.micro"
+  key_name          = "id_rsa"
+  subnet_id         = ""
+  security_group_id = ""
+  }, {
+  name              = "webserver-2"
+  ami_id            = "ami-0f58b397bc5c1f2e8"
+  instance_type     = "t2.micro"
+  key_name          = "id_rsa"
+  subnet_id         = ""
+  security_group_id = ""
+}]
