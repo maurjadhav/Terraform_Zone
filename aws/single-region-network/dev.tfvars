@@ -32,3 +32,22 @@ private_subnets = [{
   av_zone    = "ap-south-1c"
   }
 ]
+
+security_group_info = {
+  name        = "web-server"
+  description = "rules for web server"
+  vpc_id      = ""
+  inbound_rules = [{
+    cidr        = "0.0.0.0/0"
+    port        = 22
+    protocol    = "tcp"
+    description = "open ssh"
+  },{
+    cidr        = "0.0.0.0/0"
+    port        = 80
+    protocol    = "tcp"
+    description = "open http"
+  }]
+  outbound_rules   = []
+  allow_all_egress = true
+}
