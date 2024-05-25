@@ -12,6 +12,6 @@ variable "instance_info" {
     security_group_id           = string
   })
 
-  description = "webserver ec2 instance"
+  description = "instance instance"
 
 }

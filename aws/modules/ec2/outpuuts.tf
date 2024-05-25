@@ -4,11 +4,11 @@ output "aws_instance" {
 }
 
 output "web-url-preschool" {
-  value = [for instance in aws_instance.this : "http://${instance.public_ip}/preschool"]
+  value = [for instance in aws_instance.this : "http://${aws_instance.this.public_ip}/preschool"]
 
 }
 
 output "web-url-clinic" {
-  value = [for instance in aws_instance.this : "http://${instance.public_ip}/clinic"]
+  value = [for instance in aws_instance.this : "http://${aws_instance.this.public_ip}/clinic"]
 
 }

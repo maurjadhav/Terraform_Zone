@@ -10,6 +10,6 @@ output "public_subnets" {
   value = module.vpc.public_subnets
 }
 
-output "security_group" {
-  value = module.web_security_group.aws_security_group
+output "web_security_group" {
+  value = module.web_security_group
 }
