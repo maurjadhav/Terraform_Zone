@@ -79,3 +79,21 @@ module "db_security_group" {
 
   depends_on = [module.vpc]
 }
+
+
+# creating ec2_instance
+module "web_instance" {
+  source = "github.com/maurjadhav/Terraform_Zone/aws/modules/ec2"
+  count  = length(var.web_instances)
+  instance_info = {
+    name                        = var.web_instances[count.index]
+    ami_id                      = "ami-0f58b397bc5c1f2e8"
+    instance_type               = "t2.micro"
+    key_name                    = "id_rsa"
+    user_data                   = true
+    associate_public_ip_address = true
+    user_data_file              = "install.sh"
+    subnet_id                   = module.vpc.public_subnets[0]
+    security_group_id           = module.web_security_group
+  }
+}

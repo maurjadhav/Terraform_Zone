@@ -1,6 +1,6 @@
 # ec2
-variable "ec2_instance_info" {
-  type = list(object({
+variable "instance_info" {
+  type = object({
     name                        = string
     ami_id                      = string
     instance_type               = string
@@ -10,7 +10,7 @@ variable "ec2_instance_info" {
     associate_public_ip_address = bool
     subnet_id                   = string
     security_group_id           = string
-  }))
+  })
 
   description = "webserver ec2 instance"
 
