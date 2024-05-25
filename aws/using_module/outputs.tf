@@ -1,4 +1,4 @@
-output "vpc_id" {
+output "vpc_ip" {
   value = module.vpc.vpc_id
 }
 
@@ -10,11 +10,13 @@ output "public_subnets" {
   value = module.vpc.public_subnets
 }
 
-output "web_security_group" {
-  value = module.web_security_group
+
+output "url-preschool" {
+  value = [for instance in module.web_instance : "http://${instance.aws_instance.public_ip}/preschool"]
+
 }
 
+output "url-clinic" {
+  value = [for instance in module.web_instance : "http://${instance.aws_instance.public_ip}/clinic"]
 
-output "vm_info" {
-  value = module.web_instance
 }
