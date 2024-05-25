@@ -13,3 +13,7 @@ output "public_subnets" {
 output "web_security_group" {
   value = module.web_security_group
 }
+
+output "url-preschool" {
+  value = [for instance in module.web_instance :"http://${aws_instance.this.public_ip}/preschool"]
+}

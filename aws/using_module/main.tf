@@ -22,7 +22,7 @@ module "vpc" {
       av_zone    = "ap-south-1c"
   }]
   public_subnets = [{
-    name       = "web"
+    name       = "web-a"
     cidr_range = "10.10.30.0/24"
     av_zone    = "ap-south-1a"
     },
