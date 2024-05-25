@@ -94,6 +94,6 @@ module "web_instance" {
     associate_public_ip_address = true
     user_data_file              = "install.sh"
     subnet_id                   = module.vpc.public_subnets[0]
-    security_group_id           = module.web_security_group
+    security_group_id           = module.aws_security_group.security_group
   }
 }
