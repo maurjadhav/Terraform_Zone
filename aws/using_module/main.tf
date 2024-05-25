@@ -88,7 +88,7 @@ module "db_security_group" {
 module "web_instance" {
   source = "github.com/maurjadhav/Terraform_Zone/aws/modules/ec2"
   #source = "../modules/ec2"
-  count  = length(var.web_instances)
+  count = length(var.web_instances)
   instance_info = {
     name                        = var.web_instances[count.index]
     ami_id                      = "ami-0f58b397bc5c1f2e8"
