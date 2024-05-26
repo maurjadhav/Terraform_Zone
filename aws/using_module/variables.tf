@@ -1,9 +1,9 @@
 variable "web_instances" {
   type    = list(string)
-  default = ["web", "web"]
+  default = ["web-a", "web-b"]
 }
 
 variable "db_instances" {
   type    = list(string)
-  default = ["db", "db", "db"]
+  default = ["db-a", "db-b", "db-c"]
 }
