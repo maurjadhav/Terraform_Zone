@@ -20,3 +20,7 @@ output "url-clinic" {
   value = [for instance in module.web_instance : "http://${instance.aws_instance.public_ip}/clinic"]
 
 }
+
+output "db_instances_private_ip" {
+  value =[for instance in module.db_instance : instance.aws_instance.private_ip ]
+}

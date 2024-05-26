@@ -1,6 +1,7 @@
 # creating vpc
 module "vpc" {
   source = "github.com/maurjadhav/Terraform_Zone/aws/modules/vpc"
+  #source = "../modules/vpc"
   network_info = {
     name       = "primary"
     cidr_block = "10.10.0.0/16"
@@ -36,6 +37,7 @@ module "vpc" {
 # creating security group for web
 module "web_security_group" {
   source = "github.com/maurjadhav/Terraform_Zone/aws/modules/security_group"
+  #source = "../modules/security_group"
   security_group_info = {
     name        = "web-sg"
     description = "web security group"
@@ -63,6 +65,7 @@ module "web_security_group" {
 # creating security group for db
 module "db_security_group" {
   source = "github.com/maurjadhav/Terraform_Zone/aws/modules/security_group"
+  #source = "../modules/security_group"
   security_group_info = {
     name        = "db-sg"
     description = "db security group"
@@ -84,6 +87,7 @@ module "db_security_group" {
 # creating ec2_instance
 module "web_instance" {
   source = "github.com/maurjadhav/Terraform_Zone/aws/modules/ec2"
+  #source = "../modules/ec2"
   count  = length(var.web_instances)
   instance_info = {
     name                        = var.web_instances[count.index]
@@ -95,5 +99,22 @@ module "web_instance" {
     user_data_file              = "install.sh"
     subnet_id                   = module.vpc.public_subnets[0]
     security_group_id           = module.web_security_group.security_group
+  }
+}
+
+module "db_instance" {
+  source = "github.com/maurjadhav/Terraform_Zone/aws/modules/ec2"
+  #source = "../modules/ec2"
+  count  = length(var.db_instances)
+  instance_info = {
+    name                        = var.db_instances[count.index]
+    ami_id                      = "ami-0f58b397bc5c1f2e8"
+    instance_type               = "t2.micro"
+    key_name                    = "id_rsa"
+    user_data                   = false
+    user_data_file = "install.sh"
+    associate_public_ip_address = false
+    subnet_id                   = module.vpc.private_subnets[0]
+    security_group_id           = module.db_security_group.security_group
   }
 }
