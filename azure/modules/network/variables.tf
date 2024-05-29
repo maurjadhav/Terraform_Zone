@@ -1,13 +1,22 @@
-# resource group info
-variable "network_info" {
-  type = object({
-    network_name   = string
-    group_name     = string
-    group_location = string
-    network_cidr   = string
-  })
+## defining the variables
+variable "resource_group_name" {
+  type        = string
+  description = "This is resource group name"
+}
+variable "virtual_network_name" {
+  type        = string
+  description = "virtual network name"
 }
 
+variable "resource_group_location" {
+  type        = string
+  description = "This is resource group locaton"
+}
+
+variable "virtual_network_cidr" {
+  type        = list(string)
+  description = "This is primary network cidr range"
+}
 
 variable "subnet_names" {
   type        = list(string)
@@ -17,8 +26,4 @@ variable "subnet_names" {
 variable "subnets_cidrs" {
   type        = list(string)
   description = "This contains default subnet cidr"
-}
-
-variable "group_name" {
-  type = string
 }
