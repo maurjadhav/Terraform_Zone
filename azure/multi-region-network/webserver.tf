@@ -10,8 +10,6 @@ resource "azurerm_public_ip" "web-public-ip" {
     CreatedBy   = "Terraform"
   }
   depends_on = [azurerm_resource_group.group]
-
-
 }
 
 
