@@ -1,3 +1,3 @@
-output "subnet" {
-  value = azurerm_subnet.subnets
+output "subnet_ids" {
+  value = azurerm_subnet.this[*].id
 }

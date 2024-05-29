@@ -1,5 +1,5 @@
 # create network security group
-resource "azurerm_network_security_group" "web_nsg" {
+resource "azurerm_network_security_group" "this" {
   name                = var.nsg_name
   resource_group_name = var.resource_group_name
   location            = var.resource_group_location
@@ -10,10 +10,10 @@ resource "azurerm_network_security_group" "web_nsg" {
 }
 
 # create network security rule
-resource "azurerm_network_security_rule" "web_nsg" {
+resource "azurerm_network_security_rule" "this" {
   count                       = length(var.nsg_rules)
   resource_group_name         = var.resource_group_name
-  network_security_group_name = azurerm_network_security_group.web_nsg.name
+  network_security_group_name = azurerm_network_security_group.this.name
   name                        = var.nsg_rules[count.index].name
   description                 = var.nsg_rules[count.index].description
   protocol                    = var.nsg_rules[count.index].protocol
