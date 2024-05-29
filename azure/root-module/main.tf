@@ -8,7 +8,7 @@ resource "azurerm_resource_group" "this" {
   }
 }
 
-
+# virtual network
 module "network" {
   source = "../modules/network"
   network_info = {
@@ -17,5 +17,8 @@ module "network" {
     group_name     = azurerm_resource_group.this.name
     group_location = azurerm_resource_group.this.location
   }
-  depends_on = [azurerm_resource_group.this]
+  group_name    = azurerm_resource_group.this.name
+  subnet_names  = ["web-a", "web-b"]
+  subnets_cidrs = ["10.10.0.0/24", "10.10.1.0/24"]
+  depends_on    = [azurerm_resource_group.this]
 }

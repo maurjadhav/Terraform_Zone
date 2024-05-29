@@ -7,3 +7,18 @@ variable "network_info" {
     network_cidr   = string
   })
 }
+
+
+variable "subnet_names" {
+  type        = list(string)
+  description = "This contains default subnet names"
+}
+
+variable "subnets_cidrs" {
+  type        = list(string)
+  description = "This contains default subnet cidr"
+}
+
+variable "group_name" {
+  type = string
+}
