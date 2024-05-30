@@ -1,6 +1,7 @@
 # virtual network
 module "network" {
-  source                  = "../modules/network"
+  source = "github.com/maurjadhav/Terraform_Zone//azure/modules/network"
+  #source                  = "../modules/network"
   resource_group_name     = var.resource_group_name
   resource_group_location = var.resource_group_location
   virtual_network_name    = "primary_network"
@@ -11,7 +12,8 @@ module "network" {
 
 #network security group
 module "network_security_group" {
-  source                  = "../modules/security_group"
+  source = "github.com/maurjadhav/Terraform_Zone//azure/modules/security_group"
+  #source                  = "../modules/security_group"
   nsg_name                = "web_nsg"
   resource_group_name     = var.resource_group_name
   resource_group_location = var.resource_group_location
@@ -43,19 +45,21 @@ module "network_security_group" {
 
 # public ip and network interface and association
 module "public_ip_preschool" {
-  source                    = "../modules/public_ip"
+  source = "github.com/maurjadhav/Terraform_Zone//azure/modules/public_ip"
+  #source                    = "../modules/public_ip"
   resource_group_name       = var.resource_group_name
   resource_group_location   = var.resource_group_location
   network_security_group_id = module.network_security_group.nsg_group.id
   subnet_id                 = module.network.subnet_ids[0]
-  public_ip_name            = "web_public"
-  network_interface_name    = "web-network"
+  public_ip_name            = "web_public_preschool"
+  network_interface_name    = "web_network_preschool"
 }
 
 
 # virtual machine
 module "vm-preschool" {
-  source                  = "../modules/virtual_machine"
+  source = "github.com/maurjadhav/Terraform_Zone//azure/modules/virtual_machine"
+  #source                  = "../modules/virtual_machine"
   resource_group_name     = var.resource_group_name
   resource_group_location = var.resource_group_location
   network_interface_ids   = module.public_ip_preschool.network_interface_ids
@@ -64,7 +68,7 @@ module "vm-preschool" {
     # this is default UBUNTU vartiual machine specifications
     name            = "preschool"
     size            = "Standard_B1s"
-    username        = "default"
+    username        = "ubuntu"
     public_key_path = "~/.ssh/id_rsa.pub"
     publisher       = "canonical"
     offer           = "0001-com-ubuntu-server-jammy"
@@ -75,34 +79,36 @@ module "vm-preschool" {
 
 
 
-## public ip and network interface and association
-#module "public_ip_clinic" {
-#  source                    = "../modules/public_ip"
-#  resource_group_name       = var.resource_group_name
-#  resource_group_location   = var.resource_group_location
-#  network_security_group_id = module.network_security_group.nsg_group.id
-#  subnet_id                 = module.network.subnet_ids[1]
-#  public_ip_name            = "web_public"
-#  network_interface_name    = "web-network"
-#}
+# public ip and network interface and association
+#odule "public_ip_clinic" {
+# source = "github.com/maurjadhav/Terraform_Zone//azure/modules/public_ip"
+# #source                    = "../modules/public_ip"
+# resource_group_name       = var.resource_group_name
+# resource_group_location   = var.resource_group_location
+# network_security_group_id = module.network_security_group.nsg_group.id
+# subnet_id                 = module.network.subnet_ids[1]
+# public_ip_name            = "web_public_clinic"
+# network_interface_name    = "web_network_clinic"
 #
-## virtual machine
-#module "vm-clinic" {
-#  source                  = "../modules/virtual_machine"
-#  resource_group_name     = var.resource_group_name
-#  resource_group_location = var.resource_group_location
-#  network_interface_ids   = module.public_ip.network_interface_ids
-#  file_name               = "install.sh"
-#  vm_info = {
-#    # this is default UBUNTU vartiual machine specifications
-#    name            = "clinic"
-#    size            = "Standard_B1s"
-#    username        = "default"
-#    public_key_path = "~/.ssh/id_rsa.pub"
-#    publisher       = "canonical"
-#    offer           = "0001-com-ubuntu-server-jammy"
-#    sku             = "22_04-lts-gen2"
-#    version         = "latest"
-#  }
-#}
-
+#
+#
+# virtual machine
+#odule "vm-clinic" {
+# source = "github.com/maurjadhav/Terraform_Zone//azure/modules/virtual_machine"
+# #source                  = "../modules/virtual_machine"
+# resource_group_name     = var.resource_group_name
+# resource_group_location = var.resource_group_location
+# network_interface_ids   = module.public_ip_clinic.network_interface_ids
+# file_name               = "install.sh"
+# vm_info = {
+#   # this is default UBUNTU vartiual machine specifications
+#   name            = "clinic"
+#   size            = "Standard_B1s"
+#   username        = "ubuntu"
+#   public_key_path = "~/.ssh/id_rsa.pub"
+#   publisher       = "canonical"
+#   offer           = "0001-com-ubuntu-server-jammy"
+#   sku             = "22_04-lts-gen2"
+#   version         = "latest"
+# }
+#

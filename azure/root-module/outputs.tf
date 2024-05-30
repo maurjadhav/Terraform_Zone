@@ -7,6 +7,10 @@ output "nsg_group" {
 }
 
 output "web-url-preschool" {
-
   value = "http://${module.vm-preschool.v_machine}/preschool"
 }
+
+#utput "web-url-clinic" {
+#
+# value = "http://${module.vm-clinic.v_machine}/clinic"
+#
