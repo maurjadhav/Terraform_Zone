@@ -76,39 +76,3 @@ module "vm-preschool" {
     version         = "latest"
   }
 }
-
-
-
-# public ip and network interface and association
-#odule "public_ip_clinic" {
-# source = "github.com/maurjadhav/Terraform_Zone//azure/modules/public_ip"
-# #source                    = "../modules/public_ip"
-# resource_group_name       = var.resource_group_name
-# resource_group_location   = var.resource_group_location
-# network_security_group_id = module.network_security_group.nsg_group.id
-# subnet_id                 = module.network.subnet_ids[1]
-# public_ip_name            = "web_public_clinic"
-# network_interface_name    = "web_network_clinic"
-#
-#
-#
-# virtual machine
-#odule "vm-clinic" {
-# source = "github.com/maurjadhav/Terraform_Zone//azure/modules/virtual_machine"
-# #source                  = "../modules/virtual_machine"
-# resource_group_name     = var.resource_group_name
-# resource_group_location = var.resource_group_location
-# network_interface_ids   = module.public_ip_clinic.network_interface_ids
-# file_name               = "install.sh"
-# vm_info = {
-#   # this is default UBUNTU vartiual machine specifications
-#   name            = "clinic"
-#   size            = "Standard_B1s"
-#   username        = "ubuntu"
-#   public_key_path = "~/.ssh/id_rsa.pub"
-#   publisher       = "canonical"
-#   offer           = "0001-com-ubuntu-server-jammy"
-#   sku             = "22_04-lts-gen2"
-#   version         = "latest"
-# }
-#
